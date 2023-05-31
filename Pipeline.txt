@@ -1,0 +1,60 @@
+"""
+Step 0:
+I created a folder named "data" in which put all uni* files and the exons16padded one. 
+Then, in this directory, I created a different folder for each case (calling them "case1762", exc.) in which I put all the different cases data.
+
+
+Step1:
+I entered in all the five cases folders and ran this command:
+"""
+
+fastqc *
+
+"""
+Step 2:
+In all the five folders I wrote a .sh file called "preprocess.sh" and ran it with the command "sh preprocess.sh".
+This is for performing the alignment and checking its quality.
+Here the script:
+"""
+
+echo "Preprocessing fastq files..."
+
+for filename in *.fq.gz
+do
+        base=$(basename $filename .fq.gz)
+
+        echo "Aligning sample ${base}..."
+
+        bowtie2 -U ${base}.fq.gz -x ../uni --rg-id "${base}" --rg "SM:${base}" | samtools view -Sb | samtools sort -o ${base}.bam
+
+        echo "Indexing sample ${base}..."
+
+        samtools index ${base}.bam
+
+        echo "Running bamQC on sample ${base}"
+
+        qualimap bamqc -bam ${base}.bam -gff ../exons16Padded_sorted.bed -outdir ${base}
+done
+
+echo "Done"
+
+"""
+Step 3: 
+I performed variant calling in every folder with the following command, changing the case number depending on the folder I was in:
+"""
+
+freebayes -f ../universe.fasta -m 20 -C 5 -Q 10 --min-coverage 10 --targets ../exons16Padded_sorted.bed case1762_child.bam case1762_father.bam case1762_mother.bam  > case1762.vcf
+
+"""
+Step 4:
+In every folder, I ran the following command:
+"""
+
+multiqc ./
+
+"""
+and selected the variants with two different commands depending on the model of inheritance known:
+"""
+
+grep "0/1.*0/1.*1/1" case1651.vcf > reccase1651.vcf  # for recessive case(s)
+grep "0/0.*0/0.*0/1" case1762.vcf > domcase1762.vcf  # for dominant case(s)
