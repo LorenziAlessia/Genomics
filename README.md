@@ -10,7 +10,7 @@ In this final assessment project for the <i>"Genomics"</i> course at University 
 The aim of the study is to correctly <b>diagnose any possible genetic disease that could affect a child</b> out of a set of ten cases.
 
 
-## Matherials and Methods
+## Materials and Methods
 
 ### Data
 The professor provided:
