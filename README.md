@@ -44,7 +44,7 @@ This is more specifically explained in the "Report.pdf" file.
 | 1816 | 16:3801726-3801726 | C | A | Splice donor variant | CREBBP | **Rubinstein-Taybi syndrome due to CREBBP mutations** |
 | 1841 | 16:2142954-2142954 | C | A | Splice donor variant | PKD1 | **Autosomal dominant polycistic kidney disease** |
 
-# Analysis
+## Analysis
 Only two out of the total ten cases were diagnosed as “healthy”, while the other eight were diagnosed with a mutation associated to a rare mendelian disease.
 
 The mutation in **case 1651** is related to familial hypokalemia-hypomagnesemia as primary phenotype, characterized by hypokalemic metabolic alkalosis with hypomagnesemia and hypocalciuria. It's the most common renal tubular disorder among Caucasians. 
